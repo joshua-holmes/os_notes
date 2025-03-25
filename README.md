@@ -10,6 +10,7 @@ This is a repo for me to write notes in right now. That's it.
     * Trust with privacy
     * The open source community can help and will need to, if this project becomes anything at all. The amount of dev time required to ship an OS is massive. There is not much money in consumer-first desktop OSes. Funding this project privately would be next to impossible.
     * There is *no* competition for a mainstream open source desktop OS that is all managed under one roof. (Linux/GNU/GUI is too fragmented)
+    * Open source creates pressure to perform from engineers because their work is public. This makes for higher quality code. This is seen in many open source projects, [including Linux](https://youtu.be/7WbREHtc5sU?si=F1ZFO8mwByX01jN1&t=1958).
 * Use the [tracer-bullet method](https://www.barbarianmeetscoding.com/notes/books/pragmatic-programmer/tracer-bullets/) for development. This is coined (I think) from the book, The Pragmatic Programmer, by Andy Hunt and Dave Thomas. Basically, the OS will be built in working shape as soon as possible, but with only the features necessary to make it "work". New features will be built out at time goes on. This allows stakeholders to see progress very early on and gives early experimenters something to get their hands on early.
 
 ## Features
