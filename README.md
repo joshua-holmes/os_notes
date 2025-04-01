@@ -25,6 +25,14 @@ This is a repo for me to write notes in right now. That's it.
 ### Core Utils
 * The core utils should be libraries with language bindings first, not programs first. Take `grep`, for example. `grep` would be a lib that can be imported by an application developer's application. If a user wanted to use it in the shell, the shell language would just import `grep` as a part of the prelude and the user would have access to it as soon as they open a terminal window. *Core utils function more as libraries, not programs.*
 * `PATH` would not need to exist. Rather than looking for the program in the many `PATH` dirs, the shell lang would know it exists because the util is included in the prelude.
+* [Idea from JengaFX](https://jangafx.com/insights/linux-binary-compatibility), break glibc into many smaller libs
+    * Many different versions of these libs can exist at the same time, so that updating the lib doesn't result in incompatible binaries. This is how Windows does it
+    * Here are the libs:
+        * libsyscall – Handles making system calls and nothing else. This is provided as a static library only. Used by libheap, libthread and libc to gain access to shared system call code. Since it's static it's embedded in all three. You can pretend this library otherwise does not exist.
+        * libdl (Dynamic Linker) – A standalone linker that loads shared libraries. Links only against libsyscall statically. Is a true, free-standing library, depending on nothing. Provided as both a static and dynamic library. When you link against it statically you can still load things with it dynamically. You just end up with a dynamic linker inside your executable.
+        * libheap - The single heap shared by all below. Links against libsyscall statically. Provided only as a dynamic library. Cannot ever be linked against statically.
+        * libthread – Deals with threading and TLS, links against libheap. Provided only as a dynamic library. Cannot ever be linked against statically.
+        * libc – Links against libthread, and thus libheap, and libdl transitively. Provided as both a static and dynamic library. When linking statically it links libdl statically. The linking of libthread and libheap is always done dynamically though through the included libdl if linked statically or through libdl program loader if linked dynamically.
 
 ### Application Runtime
 * Applications would be sandboxed by default. Every application has access to it's own virtual filesystem that is persisted. This prevents malicious software from sharing data with privacy-sensitive software. If an application *does* need to share data with another application, well, idk yet...
